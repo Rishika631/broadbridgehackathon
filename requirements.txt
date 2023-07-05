@@ -7,10 +7,6 @@ altair<5
 transformers==4.10.0
 torch
 PyPDF2
-BaseModelConfigs
-typing
-numpy
-residual_block
 OnnxInferenceModel
 ctc_decoder
 get_cer
