@@ -7,7 +7,6 @@ altair<5
 transformers==4.10.0
 torch
 PyPDF2
-cv2
 os
 datetime
 BaseModelConfigs
