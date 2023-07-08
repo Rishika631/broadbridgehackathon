@@ -1,32 +1,23 @@
 import streamlit as st
-import cv2
-from model import ImageToWordModel
+import requests
 
-# Load the trained model
-model = ImageToWordModel(model_path="path/to/model")
+API_URL = "https://api-inference.huggingface.co/models/to-be/donut-base-finetuned-invoices"
+headers = {"Authorization": "Bearer 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"}
 
-# Define Streamlit app
+def query(file):
+    response = requests.post(API_URL, headers=headers, data=file)
+    return response.text
+
 def main():
-    st.title("Handwriting Recognition")
-    st.write("Upload an image and get the predicted text.")
-
-    # Upload image file
-    uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
-
+    st.title("Handwritten Form Text Extraction")
+    st.write("Upload an image of a handwritten form to extract the text.")
+    
+    uploaded_file = st.file_uploader("Upload Image", type=['jpg', 'jpeg', 'png'])
+    
     if uploaded_file is not None:
-        # Read the image file
-        image = cv2.imdecode(np.fromstring(uploaded_file.read(), np.uint8), 1)
+        output = query(uploaded_file.read())
+        st.write("Extracted Text:")
+        st.write(output)
 
-        # Display the uploaded image
-        st.image(image, caption="Uploaded Image", use_column_width=True)
-
-        # Perform prediction
-        prediction_text = model.predict(image)
-
-        # Display the predicted text
-        st.subheader("Predicted Text:")
-        st.write(prediction_text)
-
-# Run the Streamlit app
 if __name__ == "__main__":
     main()
