@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://api-inference.huggingface.co/models/microsoft/trocr-base-handwritten"
+API_URL = "https://api-inference.huggingface.co/models/to-be/donut-base-finetuned-invoices"
 headers = {"Authorization": "Bearer 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"}
 
 def query(file):
