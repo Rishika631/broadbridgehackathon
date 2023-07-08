@@ -28,20 +28,19 @@ def main():
         st.write("Extracted Text:")
         st.write(output)
 
-    st.subheader("Select a Sample Image:")
-    for index, image_path in enumerate(sample_images):
-        col = st.columns(2)
-        with col[0]:
-            image = Image.open(image_path)
-            st.image(image, use_column_width=True)
-            if st.button(f"Use Image {index+1}", key=f"use_image_{index}"):
-                with open(image_path, "rb") as f:
-                    image_bytes = f.read()
-                output = query(image_bytes)
-                st.write("Extracted Text:")
-                st.write(output)
+    selected_image = st.sidebar.selectbox("Select Sample Image", sample_images)
 
-    
+    st.subheader("Selected Image:")
+
+    image = Image.open(selected_image)
+    st.image(image, use_column_width=True)
+
+    if st.button("Use this Image"):
+        with open(selected_image, "rb") as f:
+            image_bytes = f.read()
+        output = query(image_bytes)
+        st.write("Extracted Text:")
+        st.write(output)
 
 if __name__ == "__main__":
     main()
